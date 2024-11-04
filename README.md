@@ -64,9 +64,16 @@ git clone https://github.com/SRA-VJTI/Pixels_Seminar.git
 ```sh
 cd Pixels_Seminar
 ```
+
 * Run the installation script
 ```sh
 make install
+```
+
+* If unable to run above script, run this script
+```sh
+chmod +x setup.sh
+./setup.sh
 ```
 
 Installation is done successfully.
