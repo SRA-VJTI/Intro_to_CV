@@ -23,7 +23,7 @@ SOFTWARE.
 */
 #include "../include/morphology.hpp"
 
-int kernel_sum(Mat image, int row, int col, int Kernel_size)
+int kernel_sum(cv::Mat image, int row, int col, int Kernel_size)
 {
 	if (Kernel_size % 2 != 1 || Kernel_size < 3)
 	{
@@ -47,7 +47,7 @@ int kernel_sum(Mat image, int row, int col, int Kernel_size)
 	return sum;
 }
 
-Mat erosion(Mat source_image, Mat output_image, int Kernel_size)
+cv::Mat erosion(cv::Mat source_image, cv::Mat output_image, int Kernel_size)
 {
 	for (int i = 0; i < source_image.rows; i++)
 	{
@@ -55,11 +55,11 @@ Mat erosion(Mat source_image, Mat output_image, int Kernel_size)
 		{
 			if (kernel_sum(source_image, i, j, Kernel_size) != 255 * (Kernel_size*Kernel_size))
 			{
-				output_image.at<u_char>(i, j) = saturate_cast<char>(0);
+				output_image.at<u_char>(i, j) = cv::saturate_cast<char>(0);
 			}
 			else
 			{
-				output_image.at<u_char>(i, j) = saturate_cast<char>(255);
+				output_image.at<u_char>(i, j) = cv::saturate_cast<char>(255);
 			}
 		}
 	}
@@ -67,7 +67,7 @@ Mat erosion(Mat source_image, Mat output_image, int Kernel_size)
 	return output_image;
 }
 
-Mat dilation(Mat source_image, Mat output_image, int kernel_size)
+cv::Mat dilation(cv::Mat source_image, cv::Mat output_image, int kernel_size)
 {
 	for (int i = 0; i < source_image.rows; i++)
 	{
@@ -75,11 +75,11 @@ Mat dilation(Mat source_image, Mat output_image, int kernel_size)
 		{
 			if (kernel_sum(source_image, i, j, kernel_size) > 0)
 			{
-				output_image.at<u_char>(i, j) = saturate_cast<char>(255);
+				output_image.at<u_char>(i, j) = cv::saturate_cast<char>(255);
 			}
 			else
 			{
-				output_image.at<u_char>(i, j) = saturate_cast<char>(0);
+				output_image.at<u_char>(i, j) = cv::saturate_cast<char>(0);
 			}
 		}
 	}
@@ -87,7 +87,7 @@ Mat dilation(Mat source_image, Mat output_image, int kernel_size)
 	return output_image;
 }
 
-Mat difference(Mat img_1, Mat img_2, Mat output)
+cv::Mat difference(cv::Mat img_1, cv::Mat img_2, cv::Mat output)
 {
 	if (img_1.size() != img_2.size())
 	{
@@ -97,7 +97,7 @@ Mat difference(Mat img_1, Mat img_2, Mat output)
 	{
 		for (int j = 0; j < img_1.cols; j++)
 		{
-			output.at<u_char>(i, j) = saturate_cast<char>((abs)((int)img_1.at<u_char>(i, j) - (int)img_2.at<u_char>(i, j)));
+			output.at<u_char>(i, j) = cv::saturate_cast<char>((abs)((int)img_1.at<u_char>(i, j) - (int)img_2.at<u_char>(i, j)));
 		}
 	}
 	return output;

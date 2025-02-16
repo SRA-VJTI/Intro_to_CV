@@ -30,7 +30,6 @@ SOFTWARE.
 */
 
 using namespace std;
-using namespace cv;
 
 /*
     Function to find median of a set of pixels
@@ -84,7 +83,7 @@ double median(vector<double> vec)
     A tuple containing median values for each channel.
 */
 
-tuple<double, double, double> getMedianPixelValues(Mat img)
+tuple<double, double, double> getMedianPixelValues(cv::Mat img)
 {
     // Initialize vectors to store the pixel values of each color channel
     vector<double> hue_pixels;
@@ -97,7 +96,7 @@ tuple<double, double, double> getMedianPixelValues(Mat img)
         for (int j = 0; j < img.cols; j++)
         {
             // Access the pixel value at (i, j)
-            Vec3b pixel = img.at<Vec3b>(i, j);
+            cv::Vec3b pixel = img.at<cv::Vec3b>(i, j);
 
             // Add the pixel values to the corresponding vectors
             hue_pixels.push_back(pixel[0]);

@@ -23,28 +23,26 @@ SOFTWARE.
 */
 #include <opencv4/opencv2/opencv.hpp>
 #include <iostream>
-using namespace cv;
 using namespace std;
 
-
-Mat masking(Mat image)
+cv::Mat masking(cv::Mat image)
 {
-   Vec3b grey = Vec3b(230,230,230); //defining masks for the colours which you do not need in the image
-   Vec3b white = Vec3b(255,255,255); //so here we want to mask grey and white colours
+   cv::Vec3b grey = cv::Vec3b(230,230,230); //defining masks for the colours which you do not need in the image
+   cv::Vec3b white = cv::Vec3b(255,255,255); //so here we want to mask grey and white colours
    
    int height = image.rows; //taking the height and width of the input 'image'
    int width = image.cols;
 
-   Mat transparentImg{image.size(), image.type()}; //creates a new transparent empty image
+   cv::Mat transparentImg{image.size(), image.type()}; //creates a new transparent empty image
 
    for(int i = 0; i < height; i++)
    {
       for(int j = 0; j < width; j++)
       {
-         Vec3b x = image.at<Vec3b>(i, j); //getting the pixel rgb values
+         cv::Vec3b x = image.at<cv::Vec3b>(i, j); //getting the pixel rgb values
          if(grey != x && white != x)
          {
-            transparentImg.at<Vec3b>(i,j)=x; //write to the new image all other colours except the one's to be ignored
+            transparentImg.at<cv::Vec3b>(i,j)=x; //write to the new image all other colours except the one's to be ignored
          }
       }
    }
@@ -53,14 +51,14 @@ Mat masking(Mat image)
 
 int main() 
 {
-   Mat image; //taking an image matrix
-   image = imread("assets/nike.png"); //loading an image
+   cv::Mat image; //taking an image matrix
+   image = cv::imread("assets/nike.png"); //loading an image
    
-   Mat new_img = masking(image);
-   imwrite("assets/bg_free.png", new_img);
-   imshow("center",new_img);
-   waitKey(0);
-   destroyAllWindows();
-	   
+   cv::Mat new_img = masking(image);
+   cv::imwrite("assets/bg_free.png", new_img);
+   cv::imshow("center",new_img);
+   cv::waitKey(0);
+   cv::destroyAllWindows();
+   
    return 0;
 }

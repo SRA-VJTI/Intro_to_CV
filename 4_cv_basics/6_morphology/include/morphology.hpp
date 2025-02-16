@@ -27,8 +27,6 @@ SOFTWARE.
 #include <opencv2/core.hpp>
 #include <iostream>
 
-using namespace cv;
-
 /*
 / @brief finds sum of elements in a kernel about given co-ordinate(y, x)
 / @param Mat image
@@ -37,7 +35,7 @@ using namespace cv;
 / @param Kernel size
 / @return sum
 */
-int kernel_sum(Mat image, int row, int col, int Kernel_size);
+int kernel_sum(cv::Mat image, int row, int col, int Kernel_size);
 
 /*
 / @brief performs erosion on source image and stores it in output image
@@ -46,7 +44,7 @@ int kernel_sum(Mat image, int row, int col, int Kernel_size);
 / @param int Kernel size
 / @return output_image after erosion
 */
-Mat erosion(Mat source_image, Mat output_image, int Kernel_size);
+cv::Mat erosion(cv::Mat source_image, cv::Mat output_image, int Kernel_size);
 
 /*
 / @brief performs dilation on source image and stores it in output image
@@ -55,7 +53,7 @@ Mat erosion(Mat source_image, Mat output_image, int Kernel_size);
 / @param kernel size
 / @return output_image after erosion
 */
-Mat dilation(Mat source_image, Mat output_image, int kernel_size);
+cv::Mat dilation(cv::Mat source_image, cv::Mat output_image, int kernel_size);
 
 /*
 / @brief Gives difference between two given arrays
@@ -64,6 +62,6 @@ Mat dilation(Mat source_image, Mat output_image, int kernel_size);
 / @param output container to store output image
 / @return output image
 */
-Mat difference(Mat img_1, Mat img_2, Mat output);
+cv::Mat difference(cv::Mat img_1, cv::Mat img_2, cv::Mat output);
 
 #endif // !HELPER_HPP

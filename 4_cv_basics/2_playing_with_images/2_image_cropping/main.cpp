@@ -25,47 +25,46 @@ SOFTWARE.
 #include <opencv2/core.hpp>
  
 using namespace std;
-using namespace cv;
- 
+
 int main(){
     //reading an image and converting to cv::Mat format
-    Mat img = imread("./assets/dog.jpeg", IMREAD_GRAYSCALE);
-    Mat img4;
-    Vec3b* ptr;
- 
+    cv::Mat img = cv::imread("./assets/dog.jpeg", cv::IMREAD_GRAYSCALE);
+    cv::Mat img4;
+    cv::Vec3b* ptr;
+
     //obtaining the dimensions of the image
     int width = img.size().width;
     int height = img.size().height;
     cout << "Width of the image: " << width << endl;
     cout << "Height of the image: " << height << endl;
- 
-    Mat img3 = Mat::zeros(Size(height/2, width/2), CV_8UC1);
- 
+
+    cv::Mat img3 = cv::Mat::zeros(cv::Size(height/2, width/2), CV_8UC1);
+
     //image compression
     //resizing an image-this essentially removes every alternate pixel rows
-    resize(img, img4, Size(width/2, height/2));
- 
+    cv::resize(img, img4, cv::Size(width/2, height/2));
+
     //cropping an image
     // The general syntax for cropping an image is :
     // img(Range(start_row, end_row), Range(start_column, end_column));
     // The following is using OpenCV Mat container's inbuilt slicing functionality
-    Mat img2 = img(Range(0, width/2), Range(0, height/2));
- 
+    cv::Mat img2 = img(cv::Range(0, width/2), cv::Range(0, height/2));
+
     // The following implementation is using for loop to demonstrate pointer arithmetic
     for(int r = 0; r<height/2; r++)
     {
         for(int c = 0; c<width/2; c++)
         {
-            img3.at<uchar>(c,r)=img.at<uchar>(c,r);
+            img3.at<uchar>(c,r) = img.at<uchar>(c,r);
         }
     }
- 
+
     //displaying the images
-    imshow("window", img);
-    imshow("resized image", img4);
-    imshow("cropped image", img2);
-    imshow("cropped image retake", img3);
-    waitKey(0);
- 
+    cv::imshow("window", img);
+    cv::imshow("resized image", img4);
+    cv::imshow("cropped image", img2);
+    cv::imshow("cropped image retake", img3);
+    cv::waitKey(0);
+
     return 0;
 }

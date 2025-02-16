@@ -25,38 +25,38 @@ SOFTWARE.
 #include <opencv2/opencv.hpp>
 
 using namespace std;
-using namespace cv;
 
 int main()
 {
-    Mat img;
-    img = imread("./assets/images/DK.jpeg");
+   cv::Mat img;
+   img = cv::imread("./assets/images/DK.jpeg");
 
-    // 1. Convert to Grayscale
-    Mat gray;
-    cvtColor(img, gray, COLOR_BGR2GRAY);
-    imshow("Gray", gray);
+   // 1. Convert to Grayscale
 
-    // 2. Apply Canny Edge detection
-    Mat edges;
-    Canny(gray, edges, 170, 250);
-    imshow("edges", edges);
+   cv::Mat gray;
+   cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
+   cv::imshow("Gray", gray);
 
-    // 3. Find contours
-    std::vector<std::vector<Point>> contours;
-    std::vector<Vec4i> hierarchy;
-    findContours(edges, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+   // 2. Apply Canny Edge detection
 
-    imshow("Canny edges after contouring", edges);
+   cv::Mat edges;
+   cv::Canny(gray, edges, 170, 250);
+   cv::imshow("edges", edges);
 
-    // 4. Draw contours on image
-    Mat contourImg = Mat::zeros(img.size(), CV_8UC3);
-    for (size_t i = 0; i < contours.size(); i++)
-    {
-        drawContours(img, contours, i, Scalar(0, 255, 0), 2);
-    }
+   // 3. Find contours
 
-    imshow("Contours", img);
-    waitKey(0);
-    destroyAllWindows();
+   std::vector<std::vector<cv::Point>> contours;
+   std::vector<cv::Vec4i> hierarchy;
+   cv::findContours(edges, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+   cv::imshow("Canny edges after contouring", edges);
+   
+   // 4. Draw contours on image
+   cv::Mat contourImg = cv::Mat::zeros(img.size(), CV_8UC3);
+   for (size_t i = 0; i < contours.size(); i++)
+   {
+       cv::drawContours(img, contours, i, cv::Scalar(0, 255, 0), 2);
+   }
+   cv::imshow("Contours", img);
+   cv::waitKey(0);
+   cv::destroyAllWindows();
 }

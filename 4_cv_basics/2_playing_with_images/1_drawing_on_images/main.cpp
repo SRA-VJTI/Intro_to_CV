@@ -27,43 +27,40 @@ SOFTWARE.
 #include <opencv2/imgproc.hpp>
 
 using namespace std;
-using namespace cv;
 
 int main(){
 
     //creating a blank Mat image
     //img(height, width, cv 8-bit 3 channels, BGR)
-    Mat img(480, 720, CV_8UC3, Scalar(0, 0, 0));
+    cv::Mat img(480, 720, CV_8UC3, cv::Scalar(0, 0, 0));
     
-   
     //drawing horizontal line on image 
     for(int j = 100,i = 200;j <= 620;j++){
-        img.at<Vec3b>(i,j)[0] = 255;
-        img.at<Vec3b>(i,j)[1] = 255;
-        img.at<Vec3b>(i,j)[2] = 255;
+        img.at<cv::Vec3b>(i,j)[0] = 255;
+        img.at<cv::Vec3b>(i,j)[1] = 255;
+        img.at<cv::Vec3b>(i,j)[2] = 255;
     } 
 
     //draing vertical line on image 
     for(int i = 80,j = 300;i <= 400;i++){
-        img.at<Vec3b>(i,j)[0] = 255;
-        img.at<Vec3b>(i,j)[1] = 255;
-        img.at<Vec3b>(i,j)[2] = 255;        
+        img.at<cv::Vec3b>(i,j)[0] = 255;
+        img.at<cv::Vec3b>(i,j)[1] = 255;
+        img.at<cv::Vec3b>(i,j)[2] = 255;        
     }
 
     //drawing an inclined line at 45 degree
     for(int i = 100;i <= 300;i++){
         for(int j = 100;j <= 300;j++){
             if(i == j){
-                img.at<Vec3b>(i,j)[0] = 255;
-                img.at<Vec3b>(i,j)[1] = 255;
-                img.at<Vec3b>(i,j)[2] = 255; 
+                img.at<cv::Vec3b>(i,j)[0] = 255;
+                img.at<cv::Vec3b>(i,j)[1] = 255;
+                img.at<cv::Vec3b>(i,j)[2] = 255; 
             }
             else continue;
         }
     }
-    imshow("Drawing", img);
-    waitKey(0);
+    cv::imshow("Drawing", img);
+    cv::waitKey(0);
 
     return 0;
 }
-

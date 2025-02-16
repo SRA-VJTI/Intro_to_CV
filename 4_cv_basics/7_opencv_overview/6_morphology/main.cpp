@@ -23,65 +23,61 @@ SOFTWARE.
 */
 #include <iostream>
 #include <opencv2/opencv.hpp>
-using namespace cv;
 using namespace std;
 
 // Function for erosion
-Mat erosion(Mat input, int kernel_size)
+cv::Mat erosion(cv::Mat input, int kernel_size)
 {
-    Mat erode_output;
-    erode(input, erode_output, getStructuringElement(MORPH_RECT, Size(kernel_size, kernel_size)));
-    return erode_output;
+   cv::Mat erode_output;
+   cv::erode(input, erode_output, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernel_size, kernel_size)));
+   return erode_output;
 }
 
 // Function for dilation
-Mat dilation(Mat input, int kernel_size)
+cv::Mat dilation(cv::Mat input, int kernel_size)
 {
-    Mat dilate_output;
-    dilate(input, dilate_output, getStructuringElement(MORPH_RECT, Size(kernel_size, kernel_size)));
-    return dilate_output;
+   cv::Mat dilate_output;
+   cv::dilate(input, dilate_output, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernel_size, kernel_size)));
+   return dilate_output;
 }
 
 // Function for opening
-Mat open(Mat input, int kernel_size)
+cv::Mat open(cv::Mat input, int kernel_size)
 {
-    Mat open_output;
-    morphologyEx(input, open_output, MORPH_OPEN, getStructuringElement(MORPH_RECT, Size(kernel_size, kernel_size)));
-    return open_output;
+   cv::Mat open_output;
+   cv::morphologyEx(input, open_output, cv::MORPH_OPEN, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernel_size, kernel_size)));
+   return open_output;
 }
 
 // Function for closing
-Mat close(Mat input, int kernel_size)
+cv::Mat close(cv::Mat input, int kernel_size)
 {
-    Mat close_output;
-    morphologyEx(input, close_output, MORPH_CLOSE, getStructuringElement(MORPH_RECT, Size(kernel_size, kernel_size)));
-    return close_output;
+   cv::Mat close_output;
+   cv::morphologyEx(input, close_output, cv::MORPH_CLOSE, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernel_size, kernel_size)));
+   return close_output;
 }
 
 // Function for gradient
-Mat gradient(Mat input, int kernel_size)
+cv::Mat gradient(cv::Mat input, int kernel_size)
 {
-    Mat gradient_output;
-    morphologyEx(input, gradient_output, MORPH_GRADIENT, getStructuringElement(MORPH_RECT, Size(kernel_size, kernel_size)));
-    return gradient_output;
+   cv::Mat gradient_output;
+   cv::morphologyEx(input, gradient_output, cv::MORPH_GRADIENT, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(kernel_size, kernel_size)));
+   return gradient_output;
 }
 
 int main()
 {
-    Mat image;
-    // Reading image, in grayscale colorspace
-    image = imread("./assets/images/morph.png", IMREAD_GRAYSCALE);
-
-    // Resultant morphological transformation (change function name & kernel size)
-    Mat res = erosion(image, 5);
-
-    // Displaying source image
-    namedWindow("Source");
-    imshow("Source", image);
-
-    // Displaying transformed image
-    namedWindow("Morphology");
-    imshow("Morphology", res);
-    waitKey(0);
-    return 0;
+   cv::Mat image;
+   // Reading image, in grayscale colorspace
+   image = cv::imread("./assets/images/morph.png", cv::IMREAD_GRAYSCALE);
+   // Resultant morphological transformation (change function name & kernel size)
+   cv::Mat res = erosion(image, 5);
+   // Displaying source image
+   cv::namedWindow("Source");
+   cv::imshow("Source", image);
+   // Displaying transformed image
+   cv::namedWindow("Morphology");
+   cv::imshow("Morphology", res);
+   cv::waitKey(0);
+   return 0;
 }

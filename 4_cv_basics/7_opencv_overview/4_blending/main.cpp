@@ -23,33 +23,32 @@ SOFTWARE.
 */
 #include <iostream>
 #include <opencv2/opencv.hpp>
-using namespace cv;
 using namespace std;
 
 int main()
 {
     // Reading input images (A and B)
-    Mat image1 = imread("./assets/images/dummy1.jpg");
-    Mat image2 = imread("./assets/images/purple_night.jpg");
+    cv::Mat image1 = cv::imread("./assets/images/dummy1.jpg");
+    cv::Mat image2 = cv::imread("./assets/images/purple_night.jpg");
 
-    resize(image1, image1, Size(), 0.75, 0.75);
-    resize(image2, image2, Size(), 0.75, 0.75);
-    imshow("Image1", image1);
-    imshow("Image2", image2);
+    cv::resize(image1, image1, cv::Size(), 0.75, 0.75);
+    cv::resize(image2, image2, cv::Size(), 0.75, 0.75);
+    cv::imshow("Image1", image1);
+    cv::imshow("Image2", image2);
 
-    Mat res;
+    cv::Mat res;
 
     // Defining weights for the two images
     float alpha = 0.4, beta = (1 - alpha);
 
     // Blending image1 and image2
     // res = alpha * image1 + beta * image2 + gamma(0)
-    addWeighted(image1, alpha, image2, beta, 0.0, res);
+    cv::addWeighted(image1, alpha, image2, beta, 0.0, res);
 
-    namedWindow("Display Image");
-    resize(res, res, Size(), 0.75, 0.75);
-    imshow("Display Image", res);
-    waitKey(0);
+    cv::namedWindow("Display Image");
+    cv::resize(res, res, cv::Size(), 0.75, 0.75);
+    cv::imshow("Display Image", res);
+    cv::waitKey(0);
 
     return 0;
 }

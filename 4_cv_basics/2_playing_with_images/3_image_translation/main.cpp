@@ -24,11 +24,10 @@ SOFTWARE.
 #include <opencv2/imgproc.hpp>
 
 using namespace std;
-using namespace cv;
 
 int main(){
     // reading image and storing it in Mat format
-    Mat image = imread("./assets/dog.jpeg", IMREAD_GRAYSCALE);
+    cv::Mat image = cv::imread("./assets/dog.jpeg", cv::IMREAD_GRAYSCALE);
 
     // storing the dimensions of the image
     int height = image.cols;
@@ -38,32 +37,32 @@ int main(){
     float tx = float(width) / 4;
     float ty = float(height) / 4;
 
-    Mat img2 = Mat::zeros(Size(height, width), CV_8UC1);
+    cv::Mat img2 = cv::Mat::zeros(cv::Size(height, width), CV_8UC1);
     
     // create the translation matrix using tx and ty
     float warp_values[] = { 1.0, 0.0, tx, 0.0, 1.0, ty };
-    Mat translation_matrix = Mat(2, 3, CV_32F, warp_values);
-    cout<<translation_matrix;
+    cv::Mat translation_matrix = cv::Mat(2, 3, CV_32F, warp_values);
+    cout << translation_matrix;
 
     // save the resulting image in translated_image matrix
-    Mat translated_image;
+    cv::Mat translated_image;
 
     // apply affine transformation to the original image using the translation matrix
-    warpAffine(image, translated_image, translation_matrix, image.size());
+    cv::warpAffine(image, translated_image, translation_matrix, image.size());
 
-    for(int r = 0; r<height-ty; r++)
+    for(int r = 0; r < height - ty; r++)
     {
-        for(int c = 0; c<width-tx; c++)
+        for(int c = 0; c < width - tx; c++)
         {
-            img2.at<uchar>(c,r)=image.at<uchar>(c+tx, r+ty);
+            img2.at<uchar>(c, r) = image.at<uchar>(c + tx, r + ty);
         }
     }
 
-    //display the original and the Translated images
-    imshow("Translated image", translated_image);
-    imshow("Translated Image Version", img2);
-    imshow("Original image", image);
-    waitKey(0);
+    // display the original and the Translated images
+    cv::imshow("Translated image", translated_image);
+    cv::imshow("Translated Image Version", img2);
+    cv::imshow("Original image", image);
+    cv::waitKey(0);
 
     return 0;
 }

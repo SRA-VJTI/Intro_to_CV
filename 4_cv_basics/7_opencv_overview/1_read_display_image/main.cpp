@@ -23,13 +23,12 @@ SOFTWARE.
 */
 #include <iostream>
 #include <opencv2/opencv.hpp>
-using namespace cv;
 using namespace std;
 
 int main()
 {
-    Mat image;
-    image = imread("./assets/images/purple_night.jpg");
+    cv::Mat image;
+    image = cv::imread("./assets/images/purple_night.jpg");
     if (!image.data)
     {
         cout << "Image not found" << endl;
@@ -42,9 +41,9 @@ int main()
     // x[1] - width of the image (number of columns)
     cout << x[0] << ',' << x[1] << endl;
     cout << image.channels() << endl;
-    namedWindow("Display Image");
-    imshow("Display Image", image);
-    waitKey(0);
+    cv::namedWindow("Display Image");
+    cv::imshow("Display Image", image);
+    cv::waitKey(0);
 
     return 0;
 }

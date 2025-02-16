@@ -23,13 +23,12 @@ SOFTWARE.
 */
 #include <iostream>
 #include <opencv2/opencv.hpp>
-using namespace cv;
 using namespace std;
 
 int main()
 {
-    Mat image;
-    image = imread("./assets/images/gray.png");
+    cv::Mat image;
+    image = cv::imread("./assets/images/gray.png");
     if (!image.data)
     {
         cout << "Image not found" << endl;
@@ -41,18 +40,18 @@ int main()
 
     cout << "Original Image Size: " << width << "x" << height << std::endl;
 
-    Mat im2;
+    cv::Mat im2;
 
-    Size new_size;
+    cv::Size new_size;
 
     new_size.height = 200;
     new_size.width = 700;
 
     resize(image, im2, new_size);
 
-    namedWindow("Display Image");
-    imshow("Display Image", im2);
-    waitKey(0);
+    cv::namedWindow("Display Image");
+    cv::imshow("Display Image", im2);
+    cv::waitKey(0);
 
     return 0;
 }
