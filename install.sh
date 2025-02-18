@@ -51,6 +51,11 @@ case "$OS" in
         ;;
     "arch")
         echo "🔹 Detected Arch Linux"
+         # Install sudo if missing
+        if ! command_exists sudo; then
+            su -c "pacman -Sy --noconfirm sudo"
+        fi
+
         sudo pacman -Sy --noconfirm base-devel opencv hdf5 glew vtk fmt sdl2 pkg-config
         ;;
     "macos")
