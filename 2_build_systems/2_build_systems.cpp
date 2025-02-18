@@ -38,8 +38,8 @@ int main(int argc, char** argv)
     imshow("Hello World", image);
     
     //display an image from the $PROJECT_SOURCE_DIR/assets/images/b&w.PNG
-    Mat img = imread("PROJECT_SOURCE_DIR/assets/images/bcci.png", IMREAD_COLOR);
-    imshow("b&w", img);
+    Mat img = imread(std::string(PROJECT_SOURCE_DIR) + "/assets/images/rotate.png", IMREAD_COLOR);
+    imshow("Example", img);
 
     // Wait for a keystroke in the window
     waitKey(0);
