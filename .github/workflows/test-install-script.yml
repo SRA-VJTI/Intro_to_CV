@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - test-install-script
+      - test-wsl-arch
     paths:
       - '.github/workflows/test-install-script.yml'
       - 'install.sh'
@@ -24,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, ubuntu-22.04, archlinux, wsl]
+        os: [ubuntu-latest, ubuntu-22.04, archlinux]
         include:
           - os: ubuntu-latest
             image: ubuntu:latest
@@ -32,8 +33,6 @@ jobs:
             image: ubuntu:22.04
           - os: archlinux
             image: archlinux:latest
-          - os: wsl
-            image: mcr.microsoft.com/wsl:latest
 
     name: ${{ matrix.os }}
     runs-on: ubuntu-latest
@@ -50,6 +49,30 @@ jobs:
 
       - name: Run Installation Script
         run: ./install.sh
+
+
+  wsl:
+    name: WSL
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up WSL2
+        uses: vedantmgoyal9/setup-wsl2@main
+
+      - name: Install dos2unix and Convert Line Endings
+        run: |
+          wsl sudo apt update -y
+          wsl sudo apt install dos2unix -y
+          wsl dos2unix "/mnt/d/a/Pixels_Seminar/Pixels_Seminar/install.sh"  # Convert line endings 
+
+      - name: Make Executable and Run Script
+        run: |
+          wsl chmod +x "/mnt/d/a/Pixels_Seminar/Pixels_Seminar/install.sh"
+          wsl bash "/mnt/d/a/Pixels_Seminar/Pixels_Seminar/install.sh"  # Run the script
 
   macos:
     name: MacOS Latest
