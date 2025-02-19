@@ -20,6 +20,32 @@ elif grep -q "WSL" /proc/version &>/dev/null; then
     OS="wsl"
 fi
 
+# Ensure Git is installed
+if ! command_exists git; then
+    echo "Git is not installed. Installing Git..."
+    case "$OS" in
+        "debian" | "wsl")
+            sudo apt update && sudo apt install -y git
+            ;;
+        "arch")
+            sudo pacman -Sy --noconfirm git
+            ;;
+        "macos")
+            brew install git
+            ;;
+        *)
+            echo "Unsupported OS. Please install Git manually."
+            exit 1
+            ;;
+    esac
+fi
+
+if [ ! -d "Pixels_Seminar" ]; then
+    echo "Cloning the repository..."
+    git clone https://github.com/SRA-VJTI/Pixels_Seminar.git
+fi
+
+cd Pixels_Seminar
 # Check if OpenCV is installed
 if pkg-config --exists opencv4 sdl2; then
     echo "OpenCV is already installed."
