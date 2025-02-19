@@ -20,6 +20,23 @@ elif grep -q "WSL" /proc/version &>/dev/null; then
     OS="wsl"
 fi
 
+# Ensure sudo is installed (for CI or minimal environments)
+if ! command_exists sudo; then
+    echo "sudo is not installed. Installing sudo..."
+    case "$OS" in
+        "debian" | "wsl")
+            su -c "apt update && apt install sudo -y"
+            ;;
+        "arch")
+            su -c "pacman -Sy --noconfirm sudo"
+            ;;
+        *)
+            echo "Unsupported OS for automatic sudo installation. Please install manually."
+            exit 1
+            ;;
+    esac
+fi
+
 # Ensure Git is installed
 if ! command_exists git; then
     echo "Git is not installed. Installing Git..."
@@ -46,6 +63,7 @@ if [ ! -d "Pixels_Seminar" ]; then
 fi
 
 cd Pixels_Seminar
+
 # Check if OpenCV is installed
 if pkg-config --exists opencv4 sdl2; then
     echo "OpenCV is already installed."
@@ -59,11 +77,6 @@ case "$OS" in
     "debian" | "wsl")
         echo "🔹 Detected Debian/Ubuntu or WSL"
         
-        # Install sudo if not available (for containers)
-        if ! command_exists sudo; then
-            su -c "apt update && apt install sudo -y"
-        fi
-        
         # Install tzdata non-interactively
         sudo apt install tzdata -y
         export DEBIAN_FRONTEND=noninteractive
@@ -73,15 +86,10 @@ case "$OS" in
 
         # Install pkg-config and OpenCV dependencies
         sudo apt update -y
-        sudo apt install -y pkg-config build-essential make g++ git libopencv-dev libsdl2-2.0-0 libsdl2-image-dev libsdl2-dev
+        sudo apt install -y pkg-config build-essential make g++ libopencv-dev libsdl2-2.0-0 libsdl2-image-dev libsdl2-dev
         ;;
     "arch")
         echo "🔹 Detected Arch Linux"
-         # Install sudo if missing
-        if ! command_exists sudo; then
-            su -c "pacman -Sy --noconfirm sudo"
-        fi
-
         sudo pacman -Sy --noconfirm base-devel opencv hdf5 glew vtk fmt sdl2 pkg-config
         ;;
     "macos")
