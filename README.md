@@ -53,21 +53,47 @@ This repository includes basics to :
 
 ## Installation Instructions
 
-OpenCV library and other dependency needs to be installed on your system, so follow these steps of installation:
+OpenCV library and other dependencies need to be installed on your system. Follow these steps:
 
-* Clone SRA-VJTI's Pixel Repository on your system
+### **Step 1: Clone the Repository**
+If `git` is installed, clone the repository:
 ```sh
 git clone https://github.com/SRA-VJTI/Pixels_Seminar.git
-``` 
+```
 
-* Change terminal directory inside the cloned repository
+If `git` is **not installed**, proceed to **Step 2** to download the installation script first.
+
+### **Step 2: Run the Installation Script**
+Change to the cloned directory (if you have cloned the repository):
 ```sh
 cd Pixels_Seminar
 ```
-* Run the installation script
-```sh
-make install
-```
 
-Installation is done successfully.
+#### **Check if `make` is Installed**
+Run:
+```sh
+make --version
+```
+If `make` is installed, it will output something like:
+```sh
+GNU Make 4.3
+Built for x86_64-pc-linux-gnu
+```
+If `make` is **not installed**, or you get an error like:
+```sh
+command not found: make
+```
+proceed with the installation script.
+
+#### **Download and Run the Installation Script**
+If `git` is missing, manually download the script:
+```sh
+wget https://raw.githubusercontent.com/SRA-VJTI/Pixels_Seminar/main/install.sh -O install.sh
+```
+Make the script executable and run it:
+```sh
+chmod +x install.sh
+./install.sh
+```
+This will install the necessary dependencies for the project.
 
